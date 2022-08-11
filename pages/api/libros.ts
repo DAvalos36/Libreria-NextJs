@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import pool from '../../db/config'
 
 type Data = {
     name: string

@@ -22,9 +22,9 @@ export default function App() {
   return (
     <Container >
       <Grid.Container gap={3}>
-      {libros.map(i => (
+      {libros.map(info=> (
         // <Grid xs={6} md={4} key={i}>
-          <CardLibro key={i.id}/>
+          <CardLibro key={info.id} {...info}/>
         // </Grid>
       ))}
       </Grid.Container>

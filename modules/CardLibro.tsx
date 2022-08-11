@@ -1,6 +1,8 @@
 import { Card, Col, Row, Button, Text, Grid } from "@nextui-org/react";
+import { Libro } from "../types/tipos";
 
-export const CardLibro = () => (
+
+export const CardLibro = (info: Libro) => (
   <Grid xs={12} sm={6} md={4}>
     <Card css={{ w: "100%", h: "400px" }}>
     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
@@ -9,13 +11,13 @@ export const CardLibro = () => (
           IT-Parral
         </Text>
         <Text h3 color="black">
-          Acme camera
+          {info.titulo}
         </Text>
       </Col>
     </Card.Header>
     <Card.Body css={{ p: 0 }}>
       <Card.Image
-        src="https://nextui.org/images/card-example-6.jpeg"
+        src={info.link_imagen}
         width="100%"
         height="100%"
         objectFit="cover"
@@ -35,7 +37,7 @@ export const CardLibro = () => (
       <Row>
         <Col>
           <Text color="#000" size={12}>
-            Available soon.
+            {info.fecha.toLocaleString()}
           </Text>
           <Text color="#000" size={12}>
             Get notified.

@@ -1,6 +1,7 @@
 import { Grid, Card, Row, Text, Container } from "@nextui-org/react";
 import { GetServerSideProps } from 'next'
 import { useEffect, useState } from "react";
+import BarraBusqueda from "../modules/BarraBusqueda";
 import { CardLibro } from "../modules/CardLibro";
 import {Libro} from "../types/tipos";
 
@@ -24,6 +25,7 @@ export default function App(props: {data: Libro[]}) {
   return (
     <Container >
       <Grid.Container gap={3}>
+        <BarraBusqueda cargarLibros={setLibros} />
         {libros.map(info=> (
           <CardLibro key={info.id} {...info}/>
         ))}

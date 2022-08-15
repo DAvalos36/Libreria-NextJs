@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next'
 import { useEffect, useState } from "react";
 import BarraBusqueda from "../modules/BarraBusqueda";
 import { CardLibro } from "../modules/CardLibro";
+import Navbar from "../modules/Navbar";
 import {Libro} from "../types/tipos";
 
 
@@ -23,6 +24,8 @@ export default function App(props: {data: Libro[]}) {
   
 
   return (
+    <>
+    <Navbar/>
     <Container >
       <Grid.Container gap={3}>
         <BarraBusqueda cargarLibros={setLibros} />
@@ -33,6 +36,7 @@ export default function App(props: {data: Libro[]}) {
         {/* {JSON.stringify(libros)} */}
       </Grid.Container>
     </Container>
+    </>
   );
 }
 

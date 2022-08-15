@@ -1,4 +1,5 @@
 import { Card, Col, Row, Button, Text, Grid } from "@nextui-org/react";
+import Link from "next/link";
 import { Libro } from "../types/tipos";
 
 
@@ -7,15 +8,15 @@ export const CardLibro = (info: Libro) => (
     <Card css={{ w: "100%", h: "400px" }}>
     <Card.Header css={{ position: "absolute", zIndex: 1, top: 5 }}>
       <Col>
-        <Text size={12} weight="bold" transform="uppercase" color="#ffffffAA">
+        <Text size={12} weight="bold" transform="uppercase" color="secondary">
           IT-Parral
         </Text>
-        <Text h3 color="black">
+        {/* <Text h3 color="error" margin={2}>
           {info.titulo}
-        </Text>
+        </Text> */}
       </Col>
     </Card.Header>
-    <Card.Body css={{ p: 0 }}>
+    <Card.Body css={{ p: 0}}>
       <Card.Image
         src={info.link_imagen}
         width="100%"
@@ -36,25 +37,28 @@ export const CardLibro = (info: Libro) => (
     >
       <Row>
         <Col>
-          <Text color="#000" size={12}>
-            {info.fecha.toLocaleString()}
+          <Text color="#000" size={16} weight="bold" >
+            {info.titulo}
           </Text>
           <Text color="#000" size={12}>
-            Get notified.
+            {info.fecha.toLocaleString()}
+            {/* Get notified. */}
           </Text>
         </Col>
         <Col>
           <Row justify="flex-end">
-            <Button flat auto rounded shadow color="secondary">
-              <Text
-                // css={{ color: "inherit" }}
-                size={12}
-                weight="bold"
-                transform="uppercase"
-              >
-                Notify Me
-              </Text>
-            </Button>
+            <Link href={"/libro/"+info.id}>
+              <Button flat auto rounded shadow color="secondary">
+                <Text
+                  css={{ color: "inherit" }}
+                  size={12}
+                  weight="bold"
+                  transform="uppercase"
+                >
+                  VER
+                </Text>
+              </Button>
+            </Link>
           </Row>
         </Col>
       </Row>

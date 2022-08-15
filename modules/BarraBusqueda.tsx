@@ -12,10 +12,15 @@ const BarraBusqueda = (props: Props) => {
     const teclear = async (e: React.ChangeEvent<FormElement>) => {
         setCargando(true);
         const nombre: string = e.target.value
-        const res = await fetch(`/api/libros?nombre=${nombre}`);
-        const info: Libro[] = await res.json();
+        try {
+            const res = await fetch(`/api/libros?nombre=${nombre}`);
+            const info: Libro[] = await res.json();
+            props.cargarLibros(info);
+        }
+        catch (error) {
+            console.log(error)
+        }
         setCargando(false);
-        props.cargarLibros(info);
     }
 
   return (

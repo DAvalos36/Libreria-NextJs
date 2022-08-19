@@ -10,10 +10,10 @@ import validar from "../../../middlewares/validaciones";
 
 
 import {Usuario} from '../../../types/tipos';
-import {EsquemaLogin, login} from "../../../schemas/login";
+import {EsquemaLoginPost, loginPost} from "../../../schemas/login";
 
 async function loginHandler (req: NextApiRequest, res: NextApiResponse) {
-    const { usuario, contra} = req.body as login;
+    const { usuario, contra} = req.body as loginPost;
     // console.log(usuario, contra);
     try {
         const connection = await pool.getConnection();
@@ -49,4 +49,4 @@ async function loginHandler (req: NextApiRequest, res: NextApiResponse) {
     }
 }
 
-export default validar(loginHandler, EsquemaLogin);
+export default validar(loginHandler, EsquemaLoginPost);

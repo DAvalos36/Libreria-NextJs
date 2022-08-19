@@ -6,13 +6,14 @@ import * as jose from 'jose';
 import cookie from "cookie";
 
 import pool from '../../../db/config';
+import validar from "../../../middlewares/validaciones";
 
 
 import {Usuario} from '../../../types/tipos';
-import SchemaLogin from "../../../schemas/login";
+import {EsquemaLogin, login} from "../../../schemas/login";
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
-    const { usuario, contra } = req.body;
+async function loginHandler (req: NextApiRequest, res: NextApiResponse) {
+    const { usuario, contra} = req.body as login;
     // console.log(usuario, contra);
     try {
         const connection = await pool.getConnection();
@@ -42,9 +43,10 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         else {
             res.status(401).json({error: 'Usuario no encontrado'});
         }
-        // bcrypt.compare()
     } catch (error: any) {
         console.log(typeof error);
         res.status(500).json({ status: 'error', error })
     }
 }
+
+export default validar(loginHandler, EsquemaLogin);

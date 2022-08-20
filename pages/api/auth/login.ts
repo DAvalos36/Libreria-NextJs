@@ -1,6 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
 import type { NextApiRequest, NextApiResponse } from 'next'
-import "dotenv/config";
 import bcrypt from 'bcrypt';
 import * as jose from 'jose';
 import cookie from "cookie";

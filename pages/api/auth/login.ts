@@ -13,15 +13,18 @@ import {Usuario} from '../../../types/tipos';
 import {EsquemaLoginPost, loginPost} from "../../../schemas/login";
 
 async function loginHandler (req: NextApiRequest, res: NextApiResponse) {
-    const { usuario, contra} = req.body as loginPost;
-    // console.log(usuario, contra);
+    if (req.method !== 'POST') {
+        return res.status(405).json({error: "Metodo no permitido"});
+    }
+
+    const data = req.body as loginPost;
     try {
         const connection = await pool.getConnection();
-        const resp = await connection.query("SELECT * FROM usuarios WHERE nom_usuario = ?", [usuario]);
+        const resp = await connection.query("SELECT * FROM usuarios WHERE nom_usuario = ?", [data.usuario]);
         connection.release();
         const usuarioDB = resp[0] as Usuario[];
         if (usuarioDB.length === 1) {
-            const match = await bcrypt.compare(contra, usuarioDB[0].pass);
+            const match = await bcrypt.compare(data.contra, usuarioDB[0].pass);
             if (match) {
                 const encoder = new TextEncoder();
                 const jwt = await new jose.SignJWT({id: usuarioDB[0].id, rango: usuarioDB[0].rango})

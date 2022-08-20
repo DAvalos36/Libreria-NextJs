@@ -11,11 +11,14 @@ import pool from '../../../db/config';
 
 
 async function registrar(req: NextApiRequest, res: NextApiResponse) {
-    const {usuario, nombre, contra, apellido} = req.body as registroPost;
+    if (req.method !== 'POST') {
+        return res.status(405).json({error: "Metodo no permitido"});
+    }
+    const data = req.body as registroPost;
     try {
-        const hash = await bcrypt.hash(contra, 10);
+        const hash = await bcrypt.hash(data.contra, 10);
         const connection = await pool.getConnection();
-        const resp = await connection.query("INSERT INTO usuarios (nom_usuario, pass, nombre, apellido) VALUES (?, ?, ?, ?)", [usuario, hash, nombre, apellido]);
+        const resp = await connection.query("INSERT INTO usuarios (nom_usuario, pass, nombre, apellido) VALUES (?, ?, ?, ?)", [data.usuario, hash, data.nombre, data.apellido]);
         connection.release();
         res.end();
     } catch (error: any ) {
